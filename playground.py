@@ -81,6 +81,7 @@ def dinosaurs2():
     print('. . .Slowest')
 
 
+# add a new employee to employees.csv
 def add_employee(first_name='FIRSTNAME', last_name='LASTNAME', age='AGE', street='STREET', zip='ZIP'):
     with open('employees.csv', mode='r+', newline='') as csv_file: # read and write mode
         csv_reader = csv.DictReader(csv_file)
@@ -102,6 +103,7 @@ def add_employee(first_name='FIRSTNAME', last_name='LASTNAME', age='AGE', street
     print(f'added employee: {first_name} {last_name} (id={next_id})')
 
 
+# playground
 def main():
     txt_to_csv()
     print('testing dinosaurs1()')
