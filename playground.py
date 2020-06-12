@@ -29,7 +29,7 @@ def txt_to_csv():
 # uses csv.reader(csvfile), assumes complete csv data with particular column order
 def dinosaurs1():
     bipedal_dict = {}
-    with open('data/dinosaur2.csv', mode='r') as csv_file:
+    with open('data/dinosaur2.csv', mode='r', newline='') as csv_file:
         csv_reader = csv.reader(csv_file)
         next(csv_reader) # skips headers
         for row in csv_reader:
@@ -37,7 +37,7 @@ def dinosaurs1():
                 bipedal_dict[row[0]] = row[1:]
 
     speed_list = []
-    with open('data/dinosaur1.csv', mode='r') as csv_file:
+    with open('data/dinosaur1.csv', mode='r', newline='') as csv_file:
         csv_reader = csv.reader(csv_file)
         next(csv_reader) # skips headers
         bipedal_names = bipedal_dict.keys()
@@ -54,18 +54,17 @@ def dinosaurs1():
     print('. . .Slowest')
 
 
-
 # uses csv.DictReader(csvfile), makes less assumptions about csv data, better readability
 def dinosaurs2():
     bipedal_dict = {}
-    with open('data/dinosaur2.csv', mode='r') as csv_file:
+    with open('data/dinosaur2.csv', mode='r', newline='') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
             if row.get('STANCE') == 'bipedal':
                 bipedal_dict[row.get('NAME')] = [row.get('STRIDE_LENGTH'), row.get('STANCE')]
         
     speed_list = []
-    with open('data/dinosaur1.csv', mode='r') as csv_file:
+    with open('data/dinosaur1.csv', mode='r', newline='') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         bipedal_names = bipedal_dict.keys()
         for row in csv_reader:
@@ -82,6 +81,27 @@ def dinosaurs2():
     print('. . .Slowest')
 
 
+def add_employee(first_name='FIRSTNAME', last_name='LASTNAME', age='AGE', street='STREET', zip='ZIP'):
+    with open('employees.csv', mode='r+', newline='') as csv_file: # read and write mode
+        csv_reader = csv.DictReader(csv_file)
+        # skip over to the last row in csv_reader
+        for row in csv_reader:
+            pass
+        # get the next available id for the employee being added
+        next_id = int(row.get('id')) + 1
+
+        csv_writer = csv.DictWriter(csv_file, fieldnames=csv_reader.fieldnames)
+        csv_writer.writerow({
+            'id': next_id,
+            'first_name': first_name,
+            'last_name': last_name,
+            'age': age,
+            'street': street,
+            'zip': zip
+        })
+    print(f'added employee: {first_name} {last_name} (id={next_id})')
+
+
 def main():
     txt_to_csv()
     print('testing dinosaurs1()')
@@ -89,6 +109,7 @@ def main():
     print()
     print('testing dinosaurs2()')
     dinosaurs2()
+    add_employee('Foobar', 'Baz', '21', 'Hacker Way', '94025')
 
 
 if __name__ == '__main__':
