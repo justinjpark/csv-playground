@@ -1,1 +1,4 @@
-data/
+.DS_Store
+# data/
+data/dinosaur1.csv
+data/dinosaur2.csv
