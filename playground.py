@@ -7,6 +7,7 @@ import csv
 import math
 
 
+# convert (comma delimited) text file to csv
 def txt_to_csv():
     data_files = ['data/data1.txt', 'data/data2.txt']
     for data_file in data_files:
@@ -81,7 +82,7 @@ def dinosaurs2():
     print('. . .Slowest')
 
 
-# add a new employee to employees.csv
+# add a new row (employee) to employees.csv
 def add_employee(first_name='FIRSTNAME', last_name='LASTNAME', age='AGE', street='STREET', zip='ZIP'):
     with open('employees.csv', mode='r+', newline='') as csv_file: # read and write mode
         csv_reader = csv.DictReader(csv_file)
@@ -105,12 +106,15 @@ def add_employee(first_name='FIRSTNAME', last_name='LASTNAME', age='AGE', street
 
 # playground
 def main():
+    print('convert (comma delimited) text file to csv')
     txt_to_csv()
     print('testing dinosaurs1()')
     dinosaurs1()
     print()
     print('testing dinosaurs2()')
     dinosaurs2()
+    print()
+    print('add a new row (employee) to employees.csv')
     add_employee('Foobar', 'Baz', '21', 'Hacker Way', '94025')
 
 
